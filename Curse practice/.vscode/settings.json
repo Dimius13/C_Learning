@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "temp_functions.h": "c",
+        "stdint.h": "c",
+        "limits": "c"
+    }
+}
