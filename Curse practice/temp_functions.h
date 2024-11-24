@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 
 
 
@@ -20,3 +21,4 @@ int minT (struct sensor* data, int loadedlines);
 int maxT (struct sensor* data, int loadedlines);
 void prHelp ();
 void intro();
+int StrtoInt(char text[]);

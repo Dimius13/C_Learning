@@ -2,10 +2,18 @@
 
 extern char filename[];
 int errorline = 0;
-int baseYear =2021;
-int scanMonthflag = 0;
-int basemonth = 2;
+extern int baseYear;
+extern int scanMonthflag;
+extern int basemonth, debugFlag;
 int loadedlines = 0;
+int daysInM [13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+int StrtoInt(char text[])
+{
+	int number = 0;
+	sscanf(text, "%d", number);
+	return number;
+}
 
 
 int VisokosYear(int year)
@@ -28,7 +36,6 @@ void RecordtoStr(struct sensor* temp, uint16_t year, uint8_t month, uint8_t day,
 
 int Errorcheck (struct sensor* temp)
 {
-	int daysInM [13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	int flag = 0;
 	if (temp[0].year != baseYear) flag = 1;
 	if (temp[0].month < 1 || temp[0].month > 12) flag = 1;
@@ -73,9 +80,12 @@ void fileReader(char inputFile[], struct sensor* temp, struct sensor* data)
 		succsessScan++;
 		data[loadedlines++] = temp[0];
 	}
-	printf("succsess scans = %d\n", succsessScan);
-	printf("bad lines = %d\n", badlines);
-	printf("error lines = %d\n", errorline);
+	if (debugFlag == 1)
+	{
+		printf("succsess scans = %d\n", succsessScan);
+		printf("bad lines = %d\n", badlines);
+		printf("error lines = %d\n", errorline);
+	}
 }
 
 
@@ -111,3 +121,33 @@ float Average(struct sensor* data, int loadedlines)
 	averg /= (float)loadedlines;
 	return averg;
 }
+
+void prtGraphM (struct sensor* data, int loadedlines, int month)
+{
+	int min = minT(data, loadedlines), max= maxT(data, loadedlines);
+	int VertSIZE, HorSIZE;
+	VertSIZE = max - min +4;
+	HorSIZE = daysInM[month]+ 4;
+	int Graph [VertSIZE][HorSIZE];
+}
+
+void GrathLines (int Grath[][], int VertSIZE, int HorSIZE)
+{
+
+}
+
+float AverForDay (struct sensor* data, int loadedlines, int month, int day)
+{
+	int sumDay= 0, countDay = 0;
+	float averDay = 0;
+	for (int i=0; i < loadedlines; i++)
+	{
+			if ( (data[i].month == month) && (data[i].day == day) )
+			{
+				sumDay += data[i].t;
+				countDay++;
+			}
+	}
+	averDay = sumDay/ (float) countDay;
+	return averDay;
+};

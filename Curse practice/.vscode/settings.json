@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "temp_functions.h": "c",
         "stdint.h": "c",
-        "limits": "c"
+        "limits": "c",
+        "stdlib.h": "c"
     }
 }
